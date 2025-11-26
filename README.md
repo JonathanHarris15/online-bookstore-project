@@ -1,6 +1,6 @@
-# Online Bookstore GUI
+# Online Bookstore Project
 
-This is a desktop application for an online bookstore, built with Python and CustomTkinter.
+This is a desktop application for an online bookstore, built with Python and CustomTkinter using Python Flask for the API.
 
 ## Setup
 
@@ -14,10 +14,7 @@ This is a desktop application for an online bookstore, built with Python and Cus
     ```bash
     pip install -r requirements.txt
     ```
-
-## Running the Application
-
-To start the application, run:
-```bash
-python main.py
-```
+4. Make sure run.py is sourced for Flask
+    ```bash
+    $env:FLASK_APP = 'run.py';
+    ```
