@@ -25,9 +25,20 @@ def search_command():
     query = book_page.get_var("search_bar")
     threading.Thread(target=fetch_books, args=(query,)).start()
 
+def add_to_cart(book, type):
+    b = book_page.get_var("cart")
+    b.append([book, type])
+    book_page.set_var("cart", b)
+
+def remove_from_cart(book):
+    cart = book_page.get_var("cart")
+    cart = [item for item in cart if item[0] != book]
+    book_page.set_var("cart", cart)
+
 def on_enter():
     book_page.set_var("books", [])
-    book_page.set_var("cart_count",0)
+    if(book_page.get_var("cart") is None):
+        book_page.set_var("cart", [])
     threading.Thread(target=fetch_books).start()
 
 book_page.onEnter = on_enter
@@ -52,13 +63,17 @@ def create_book_widget(parent, book):
     
     # --- Columns 1 & 2: Pricing and Buttons ---
     if book.get("is_available", False):
-        # Buy Info
-        ctk.CTkLabel(book_frame, text=f"Buy: ${book.get('buy_price', 0):.2f}").grid(row=0, column=1, sticky="s")
-        ctk.CTkButton(book_frame, text="Buy", width=100).grid(row=1, column=1, padx=5, pady=(0, 5))
-        
-        # Rent Info
-        ctk.CTkLabel(book_frame, text=f"Rent: ${book.get('rent_price', 0):.2f}").grid(row=0, column=2, sticky="s")
-        ctk.CTkButton(book_frame, text="Rent", width=100).grid(row=1, column=2, padx=5, pady=(0, 5))
+        #only show the buy and rent options if the book is not already in the cart
+        if not any(book == cart_item[0] for cart_item in book_page.get_var("cart")):
+            # Buy Info
+            ctk.CTkLabel(book_frame, text=f"Buy: ${book.get('buy_price', 0):.2f}").grid(row=0, column=1, sticky="s")
+            ctk.CTkButton(book_frame, text="Buy", width=100,command=lambda:add_to_cart(book,"buy")).grid(row=1, column=1, padx=5, pady=(0, 5))
+            
+            # Rent Info
+            ctk.CTkLabel(book_frame, text=f"Rent: ${book.get('rent_price', 0):.2f}").grid(row=0, column=2, sticky="s")
+            ctk.CTkButton(book_frame, text="Rent", width=100, command=lambda:add_to_cart(book,"rent")).grid(row=1, column=2, padx=5, pady=(0, 5))
+        else:
+            ctk.CTkButton(book_frame, text="Remove from Cart", width=100, fg_color='red2', hover_color='red3', command=lambda: remove_from_cart(book)).grid(row=1, column=2, padx=5, pady=(0, 5))
     else:
         ctk.CTkLabel(book_frame, text="Not Available").grid(row=0, column=1, columnspan=2, rowspan=2)
 
@@ -70,7 +85,7 @@ def book_page_frame(parent):
     #Search Bar and Cart
     book_page.add_searchbar(frame, x=0.4425, y=0.05, w=0.785, h=0.05, id="search_bar", placeholder="Search")
     book_page.add_button(frame, x=0.87, y=0.05, w=0.05, h=0.05, content="🔎", command=search_command)
-    book_page.add_button(frame, x=0.93, y=0.05, w=0.05, h=0.05, content=f"🛒 ({book_page.get_var('cart_count')})", command=lambda:print("cart"))
+    book_page.add_button(frame, x=0.93, y=0.05, w=0.05, h=0.05, content=f"🛒 ({len(book_page.get_var('cart'))})", command=lambda:book_page.to_Page("Cart Page",["cart","books"]))
 
     #Book View
     books = book_page.get_var("books")
@@ -88,6 +103,9 @@ def book_page_frame(parent):
 
     book_page.add_scrollable_list(frame, x=0.5, y=0.5, w=0.9, h=0.8, widget_generators=book_widgets)
     
+    #User Info
+    ctk.CTkLabel(frame, text="Signed in as: {}", font=("Arial", 11)).place(relx=0.01, rely=1, anchor="sw")
+
     #Back Button
     book_page.add_button(parent, x=0.94, y=0.96, w=0.1, h=0.05, content="Back", command=lambda: book_page.to_Page("Start Page"))
     return frame
