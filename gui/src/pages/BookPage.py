@@ -104,7 +104,7 @@ def book_page_frame(parent):
     book_page.add_scrollable_list(frame, x=0.5, y=0.5, w=0.9, h=0.8, widget_generators=book_widgets)
     
     #User Info
-    ctk.CTkLabel(frame, text="Signed in as: {}", font=("Arial", 11)).place(relx=0.01, rely=1, anchor="sw")
+    ctk.CTkLabel(frame, text=f"Signed in as: {book_page.get_var('username')}", font=("Arial", 11)).place(relx=0.01, rely=1, anchor="sw")
 
     #Back Button
     book_page.add_button(parent, x=0.94, y=0.96, w=0.1, h=0.05, content="Back", command=lambda: book_page.to_Page("Start Page"))

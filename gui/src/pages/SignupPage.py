@@ -8,11 +8,7 @@ signup_page = Page()
 
 url = "http://127.0.0.1:5000/auth/register"
 
-def signup_page_frame(parent):
-    frame = ctk.CTkFrame(parent)
-    ctk.CTkLabel(frame, text="Sign Up", font=("Arial", 24)).place(relx=0.5, rely=0.05, anchor="center")
-
-    def register():
+def register():
         email_val = signup_page.get_var("email_entry")
         username_val = signup_page.get_var("username_entry")
         password_val = signup_page.get_var("password_entry")
@@ -42,18 +38,28 @@ def signup_page_frame(parent):
                     "username": username,
                     "password": password
                 })
-                print("response:")
-                print(response.json())
-                
-                signup_page.set_var("status", "Request Complete") 
+                if response.status_code == 201:
+                    signup_page.to_Page("Login Page")
+                else:
+                    # If it's not a success, parse the JSON to get the error message
+                    try:
+                        error_data = response.json()
+                        message = error_data.get("message", "An unknown error occurred.")
+                        signup_page.set_var("status", message)
+                    except requests.exceptions.JSONDecodeError:
+                        signup_page.set_var("status", f"Server error: {response.status_code}")
 
-            except Exception as e:
+            except requests.exceptions.RequestException as e:
                 print(f"Error: {e}")
-                signup_page.set_var("status", "Something went wrong")
+                signup_page.set_var("status", "Something went wrong. Could not connect to server.")
 
         # This creates a separate lane for the network traffic so the GUI doesn't freeze
         t = threading.Thread(target=send_request_task, args=(email_val, username_val, password_val))
         t.start()
+
+def signup_page_frame(parent):
+    frame = ctk.CTkFrame(parent)
+    ctk.CTkLabel(frame, text="Sign Up", font=("Arial", 24)).place(relx=0.5, rely=0.05, anchor="center")
 
     #Username, Password, and Email
     signup_page.add_text_input(parent, x=0.5, y=0.39, w=0.35, h=0.05, id="email_entry", placeholder="Email")
