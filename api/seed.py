@@ -18,7 +18,27 @@ def seed():
             {"title": "1984", "author": "George Orwell", "buy_price": 8.99, "rent_price": 1.99},
             {"title": "Harry Potter and the Sorcerer's Stone", "author": "J.K. Rowling", "buy_price": 15.00, "rent_price": 4.50},
             {"title": "Introduction to Algorithms", "author": "Thomas H. Cormen", "buy_price": 95.00, "rent_price": 35.00},
-            {"title": "Clean Code", "author": "Robert C. Martin", "buy_price": 40.00, "rent_price": 12.00}
+            {"title": "Clean Code", "author": "Robert C. Martin", "buy_price": 40.00, "rent_price": 12.00},
+            {"title": "The Pragmatic Programmer", "author": "Andrew Hunt & David Thomas", "buy_price": 45.00, "rent_price": 15.00},
+            {"title": "To Kill a Mockingbird", "author": "Harper Lee", "buy_price": 9.99, "rent_price": 2.99},
+            {"title": "Design Patterns: Elements of Reusable Object-Oriented Software", "author": "Erich Gamma et al.", "buy_price": 50.00, "rent_price": 18.00},
+            {"title": "The Hobbit", "author": "J.R.R. Tolkien", "buy_price": 12.50, "rent_price": 3.75},
+            {"title": "Code Complete", "author": "Steve McConnell", "buy_price": 48.00, "rent_price": 16.00},
+            {"title": "Dune", "author": "Frank Herbert", "buy_price": 18.00, "rent_price": 5.50},
+            {"title": "Structure and Interpretation of Computer Programs", "author": "Harold Abelson", "buy_price": 65.00, "rent_price": 25.00},
+            {"title": "Fahrenheit 451", "author": "Ray Bradbury", "buy_price": 10.00, "rent_price": 3.00},
+            {"title": "Refactoring", "author": "Martin Fowler", "buy_price": 55.00, "rent_price": 20.00},
+            {"title": "The Catcher in the Rye", "author": "J.D. Salinger", "buy_price": 9.50, "rent_price": 2.50},
+            {"title": "Head First Design Patterns", "author": "Eric Freeman", "buy_price": 42.00, "rent_price": 14.50},
+            {"title": "Pride and Prejudice", "author": "Jane Austen", "buy_price": 7.99, "rent_price": 1.50},
+            {"title": "Artificial Intelligence: A Modern Approach", "author": "Stuart Russell & Peter Norvig", "buy_price": 110.00, "rent_price": 40.00},
+            {"title": "Brave New World", "author": "Aldous Huxley", "buy_price": 11.00, "rent_price": 3.25},
+            {"title": "Cracking the Coding Interview", "author": "Gayle Laakmann McDowell", "buy_price": 35.00, "rent_price": 12.00},
+            {"title": "The Lord of the Rings", "author": "J.R.R. Tolkien", "buy_price": 25.00, "rent_price": 8.00},
+            {"title": "Effective Java", "author": "Joshua Bloch", "buy_price": 42.00, "rent_price": 13.00},
+            {"title": "The Alchemist", "author": "Paulo Coelho", "buy_price": 13.00, "rent_price": 4.00},
+            {"title": "Deep Learning", "author": "Ian Goodfellow", "buy_price": 80.00, "rent_price": 30.00},
+            {"title": "Animal Farm", "author": "George Orwell", "buy_price": 8.50, "rent_price": 2.00}
         ]
 
         for data in books_data:

@@ -16,7 +16,7 @@ def login_page_frame(parent):
     login_page.add_button(parent, x=0.5, y=0.6, w=0.2, h=0.05, content="Login", command=lambda: login_page.print_vars())
 
     #Back to Main Menu
-    login_page.add_button(parent, x=0.87, y=0.94, w=0.2, h=0.05, content="Back", command=lambda: login_page.to_Page("Start Page"))
+    login_page.add_button(parent, x=0.94, y=0.96, w=0.1, h=0.05, content="Back", command=lambda: login_page.to_Page("Start Page"))
     return frame
 
 login_page.set_frame(login_page_frame)

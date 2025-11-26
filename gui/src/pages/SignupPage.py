@@ -62,7 +62,7 @@ def signup_page_frame(parent):
     signup_page.add_text_input(parent, x=0.5, y=0.57, w=0.35, h=0.05, id="c_password_entry", placeholder="Confirm Password", show="*")
 
     #Login Button
-    signup_page.add_button(parent, x=0.5, y=0.63, w=0.2, h=0.05, content="Register", command=lambda: register())
+    signup_page.add_button(parent, x=0.5, y=0.65, w=0.2, h=0.05, content="Register", command=lambda: register())
 
     #Status Message
     status = signup_page.get_var("status")
@@ -76,7 +76,7 @@ def signup_page_frame(parent):
         signup_page.set_var("username_entry", None)
         signup_page.set_var("password_entry", None)
         signup_page.to_Page("Start Page")
-    signup_page.add_button(parent, x=0.87, y=0.94, w=0.2, h=0.05, content="Back", command=lambda: back())
+    signup_page.add_button(parent, x=0.94, y=0.96, w=0.1, h=0.05, content="Back", command=lambda: back())
     return frame
 
 signup_page.set_frame(signup_page_frame)

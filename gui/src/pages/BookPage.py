@@ -27,6 +27,7 @@ def search_command():
 
 def on_enter():
     book_page.set_var("books", [])
+    book_page.set_var("cart_count",0)
     threading.Thread(target=fetch_books).start()
 
 book_page.onEnter = on_enter
@@ -66,9 +67,10 @@ def create_book_widget(parent, book):
 def book_page_frame(parent):
     frame = ctk.CTkFrame(parent)
 
-    #Search Bar
-    book_page.add_searchbar(frame, x=0.5, y=0.05, w=0.7, h=0.05, id="search_bar", placeholder="Search")
-    book_page.add_button(frame, x=0.88, y=0.05, w=0.05, h=0.05, content="🔎", command=search_command)
+    #Search Bar and Cart
+    book_page.add_searchbar(frame, x=0.4425, y=0.05, w=0.785, h=0.05, id="search_bar", placeholder="Search")
+    book_page.add_button(frame, x=0.87, y=0.05, w=0.05, h=0.05, content="🔎", command=search_command)
+    book_page.add_button(frame, x=0.93, y=0.05, w=0.05, h=0.05, content=f"🛒 ({book_page.get_var('cart_count')})", command=lambda:print("cart"))
 
     #Book View
     books = book_page.get_var("books")
@@ -86,6 +88,8 @@ def book_page_frame(parent):
 
     book_page.add_scrollable_list(frame, x=0.5, y=0.5, w=0.9, h=0.8, widget_generators=book_widgets)
     
+    #Back Button
+    book_page.add_button(parent, x=0.94, y=0.96, w=0.1, h=0.05, content="Back", command=lambda: book_page.to_Page("Start Page"))
     return frame
 
 book_page.set_frame(book_page_frame)
