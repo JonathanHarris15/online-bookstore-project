@@ -6,6 +6,7 @@ import json
 
 cart_page = Page()
 
+
 def remove_from_cart(book):
     cart = cart_page.get_var("cart")
     cart = [item for item in cart if item[0] != book]
@@ -38,15 +39,6 @@ def confirm_purchase(cart, total_cost, parent):
     
     if response.status_code == 201:
         print("Order placed successfully")
-        # Generate bill
-        bill = f"Order Confirmation\n\n"
-        for book, purchase_type in cart:
-            price = book.get('rent_price', 0) if purchase_type == "rent" else book.get('buy_price', 0)
-            bill += f"{book.get('title')} ({purchase_type}): ${price:.2f}\n"
-        bill += f"\nTotal: ${total_cost:.2f}"
-        
-        # TODO: Email the bill to the user
-        print(bill)
         
         # Clear cart and go back to book page
         cart_page.set_var("cart", [])
