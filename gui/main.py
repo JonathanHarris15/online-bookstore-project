@@ -1,5 +1,5 @@
 from src.jhinter import Application
-from src.pages import StartPage, LoginPage, SignupPage, BookPage, CartPage, ManagerPage
+from src.pages import StartPage, LoginPage, SignupPage, BookPage, CartPage, ManagerPage, UserInfoPage
 
 
 # Create the main application window
@@ -12,5 +12,6 @@ app.add_page(app, SignupPage.signup_page, "Sign Up Page")
 app.add_page(app, BookPage.book_page, "Book Page")
 app.add_page(app, CartPage.cart_page, "Cart Page")
 app.add_page(app, ManagerPage.manager_page, "Manager Page")
+app.add_page(app, UserInfoPage.user_info_page, "User Page")
 
 app.start_app()

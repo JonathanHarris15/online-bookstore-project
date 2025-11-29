@@ -85,7 +85,10 @@ def book_page_frame(parent):
     #Search Bar and Cart
     book_page.add_searchbar(frame, x=0.4425, y=0.05, w=0.785, h=0.05, id="search_bar", placeholder="Search")
     book_page.add_button(frame, x=0.87, y=0.05, w=0.05, h=0.05, content="🔎", command=search_command)
-    book_page.add_button(frame, x=0.93, y=0.05, w=0.05, h=0.05, content=f"🛒 ({len(book_page.get_var('cart'))})", command=lambda:book_page.to_Page("Cart Page",["cart","books", "token"]))
+
+    _cart = book_page.get_var('cart') or []
+    cart_count = len(_cart)
+    book_page.add_button(frame, x=0.93, y=0.05, w=0.05, h=0.05, content=f"🛒 ({cart_count})", command=lambda:book_page.to_Page("Cart Page",["cart","books", "token"]))
 
     #Book View
     books = book_page.get_var("books")
@@ -104,7 +107,8 @@ def book_page_frame(parent):
     book_page.add_scrollable_list(frame, x=0.5, y=0.5, w=0.9, h=0.8, widget_generators=book_widgets)
     
     #User Info
-    ctk.CTkLabel(frame, text=f"Signed in as: {book_page.get_var('username')}", font=("Arial", 11)).place(relx=0.01, rely=1, anchor="sw")
+    display_name = book_page.get_var('username') or "(not signed in)"
+    book_page.add_button(parent, x=0.06, y=0.96, w=0.1, h=0.05, content=f"Signed in as: {display_name}", command=lambda: book_page.to_Page("User Page",['token', 'username']))
 
     #Back Button
     book_page.add_button(parent, x=0.94, y=0.96, w=0.1, h=0.05, content="Back", command=lambda: book_page.to_Page("Start Page"))

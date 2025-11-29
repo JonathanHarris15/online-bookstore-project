@@ -21,7 +21,7 @@ def create_app(config_class=DevelopmentConfig):
     
 
     #Resources
-    from .resources.user_resources import UserRegister, UserLogin
+    from .resources.user_resources import UserRegister, UserLogin, UserResource
     from .resources.book_resources import BookList, BookResource
     from .resources.order_resources import OrderCreation
     from .resources.manager_resources import ManagerOrderList, ManagerOrderUpdate
@@ -30,6 +30,7 @@ def create_app(config_class=DevelopmentConfig):
     #User
     api.add_resource(UserRegister, '/auth/register')
     api.add_resource(UserLogin, '/auth/login')
+    api.add_resource(UserResource, '/auth/user/<string:username>')
 
     #Book
     api.add_resource(BookList, '/books')
