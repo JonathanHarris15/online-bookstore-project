@@ -85,7 +85,7 @@ def book_page_frame(parent):
     #Search Bar and Cart
     book_page.add_searchbar(frame, x=0.4425, y=0.05, w=0.785, h=0.05, id="search_bar", placeholder="Search")
     book_page.add_button(frame, x=0.87, y=0.05, w=0.05, h=0.05, content="🔎", command=search_command)
-    book_page.add_button(frame, x=0.93, y=0.05, w=0.05, h=0.05, content=f"🛒 ({len(book_page.get_var('cart'))})", command=lambda:book_page.to_Page("Cart Page",["cart","books"]))
+    book_page.add_button(frame, x=0.93, y=0.05, w=0.05, h=0.05, content=f"🛒 ({len(book_page.get_var('cart'))})", command=lambda:book_page.to_Page("Cart Page",["cart","books", "token"]))
 
     #Book View
     books = book_page.get_var("books")

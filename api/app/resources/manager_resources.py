@@ -18,12 +18,25 @@ class ManagerOrderList(Resource):
 
         output = []
         for order in orders:
+            # include order items (book info + purchase type)
+            items = []
+            for item in getattr(order, 'order_items', []):
+                book = getattr(item, 'book', None)
+                items.append({
+                    'book_id': item.book_id,
+                    'title': book.title if book else None,
+                    'author': book.author if book else None,
+                    'type': item.type,
+                    'item_price': float(item.item_price)
+                })
+
             output.append({
                 "id": order.id,
                 "user_id": order.user_id,
                 "total_amount": float(order.total_amount),
                 "payment_status": order.payment_status,
-                "order_date": order.order_date.isoformat()
+                "order_date": order.order_date.isoformat(),
+                "items": items
             })
 
         return output, 200

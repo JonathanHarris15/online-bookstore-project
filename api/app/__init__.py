@@ -22,7 +22,7 @@ def create_app(config_class=DevelopmentConfig):
 
     #Resources
     from .resources.user_resources import UserRegister, UserLogin
-    from .resources.book_resources import BookList
+    from .resources.book_resources import BookList, BookResource
     from .resources.order_resources import OrderCreation
     from .resources.manager_resources import ManagerOrderList, ManagerOrderUpdate
 
@@ -33,6 +33,7 @@ def create_app(config_class=DevelopmentConfig):
 
     #Book
     api.add_resource(BookList, '/books')
+    api.add_resource(BookResource, '/books/<int:book_id>')
 
     #Orders
     api.add_resource(OrderCreation, '/orders')

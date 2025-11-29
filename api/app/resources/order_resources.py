@@ -29,7 +29,10 @@ class OrderCreation(Resource):
             if action_type == 'buy':
                 price = book.buy_price
             elif action_type == 'rent':
+                if not book.is_available:
+                    return {'message': f'Book with ID {book_id} is not available for rent.'}, 400
                 price = book.rent_price
+                book.is_available = False
             else:
                 return {'message': f"Invalid type {action_type} for Book ID {book_id}"}, 400
             

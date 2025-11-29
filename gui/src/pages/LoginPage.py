@@ -24,11 +24,19 @@ def try_login():
             if response.status_code == 200:
                 login_page.set_var("status", "Login Successful")
                 login_page.set_var("username", username)
-                login_page.set_var("token", response.json()["access_token"])
+                token = response.json()["access_token"]
+                login_page.set_var("token", token)
 
                 #Check the manager database
-                #if a regular user, go to book page, else go to manager screen
-                login_page.to_Page("Book Page",["username","token"])
+                headers = {"Authorization": f"Bearer {token}"}
+                manager_check_response = requests.get("http://127.0.0.1:5000/manager/orders", headers=headers)
+                
+                if manager_check_response.status_code == 200:
+                    # Is a manager
+                    login_page.to_Page("Manager Page", ["username", "token"])
+                else:
+                    # Is not a manager
+                    login_page.to_Page("Book Page",["username","token"])
             if response.status_code == 401:
                 login_page.set_var("status", "Invalid Credentials")
         except requests.exceptions.RequestException as e:

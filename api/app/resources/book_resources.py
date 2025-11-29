@@ -63,6 +63,54 @@ class BookList(Resource):
         )
 
         return {"message": f"Book '{title}' added successfully"}, 201
-        
 
+class BookResource(Resource):
+    def get(self, book_id):
+        book = Book.query.get_or_404(book_id)
+        return {
+            'id': book.id,
+            'title': book.title,
+            'author': book.author,
+            'buy_price': float(book.buy_price),
+            'rent_price': float(book.rent_price),
+            'is_available': book.is_available
+        }
+
+    @jwt_required()
+    def patch(self, book_id):
+        manager_entry = Managers.query.filter_by(user_id=get_jwt_identity()).first()
+        if not manager_entry:
+            return {"message": "Manager access required"}, 403
+
+        book = Book.query.get_or_404(book_id)
+        data = request.get_json()
+
+        book.title = data.get('title', book.title)
+        book.author = data.get('author', book.author)
+        book.buy_price = data.get('buy_price', book.buy_price)
+        book.rent_price = data.get('rent_price', book.rent_price)
+        book.is_available = data.get('is_available', book.is_available)
         
+        db.session.commit()
+        return {
+            'id': book.id,
+            'title': book.title,
+            'author': book.author,
+            'buy_price': float(book.buy_price),
+            'rent_price': float(book.rent_price),
+            'is_available': book.is_available
+        }
+
+    @jwt_required()
+    def delete(self, book_id):
+        manager_entry = Managers.query.filter_by(user_id=get_jwt_identity()).first()
+        if not manager_entry:
+            return {"message": "Manager access required"}, 403
+
+        book = Book.query.get_or_404(book_id)
+        db.session.delete(book)
+        db.session.commit()
+        return {"message": f"Book with ID {book_id} has been deleted."}
+
+
+
