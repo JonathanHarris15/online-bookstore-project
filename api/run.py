@@ -3,7 +3,7 @@ load_dotenv()
 
 from app import create_app, db
 from app.models import User, Book, Order, OrderItem, Managers
-from seed import seed
+from api.managment.seed import seed
 
 app = create_app()
 

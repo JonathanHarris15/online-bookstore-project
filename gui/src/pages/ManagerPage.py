@@ -247,11 +247,11 @@ def manager_page_frame(parent):
     # Book View
     books = get_all_books()
     book_widgets = [lambda sf, b=book: create_book_widget(sf, b, token) for book in books]
-    book_list_frame = manager_page.add_scrollable_list(books_frame, x=0.5, y=0.35, w=0.95, h=0.55, widget_generators=book_widgets)
+    book_list_frame = manager_page.add_scrollable_list(books_frame, x=0.5, y=0.32, w=0.95, h=0.55, widget_generators=book_widgets)
 
     # Add Book Form
     add_book_frame = ctk.CTkFrame(books_frame)
-    add_book_frame.place(relx=0.5, rely=0.675, relwidth=0.95, relheight=0.3, anchor="n")
+    add_book_frame.place(relx=0.5, rely=0.62, relwidth=0.95, relheight=0.35, anchor="n")
 
     ctk.CTkLabel(add_book_frame, text="Add New Book", font=("Arial", 18)).pack(pady=10)
 
